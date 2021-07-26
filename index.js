@@ -63,6 +63,7 @@ client.on('ready', async () => {
     const readCommands = dir => {
         const files = fs.readdirSync(path.join(__dirname, dir))
         files.shift(1)
+        files.shift(1)
         for (const file of files) {
             const stat = fs.lstatSync(path.join(__dirname, dir, file))
             if (stat.isDirectory()) {
