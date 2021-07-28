@@ -11,6 +11,6 @@ module.exports = {
             .addField(`AniRaid Bot`,`The Link To Inviting AniRaid Bot To Your Server Is : -\nAdd After Launch`,false)
             .setTimestamp()
             .setFooter(`Requested By ${message.author.tag}`, message.author.displayAvatarURL({dynamic:true}))
-        message.channel.send(linkEmbed)
+        message.channel.send({ embeds : [linkEmbed] })
     }
 }

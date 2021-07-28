@@ -5,7 +5,7 @@ module.exports = {
     permissions : ['ADMINISTRATOR','BAN_MEMBERS'],
     callback : (client, message, arguments, text) => {
         const { member, mentions } = message
-        if (member.hasPermission('ADMINISTRATOR') || member.hasPermission('BAN_MEMBER')) {
+        if (member.permissions.has('ADMINISTRATOR') || member.permissions.has('BAN_MEMBER')) {
             const target = mentions.users.first()
             if (target) {
                 const targetMember = message.guild.members.cache.get(target.id)

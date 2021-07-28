@@ -1069,23 +1069,31 @@ module.exports = {
                         let allCardIdRecieved = []
                         for (let i=0; i<5; i++) {
                             let chance = Math.floor((Math.random()*100)+1)
-                            var cardIds = Math.floor((Math.random()*526))
-                            if (cardIds === 1 || cardIds === 2) { cardIds =3 }
-                            if (cardIds === 44 || cardIds === 122 || cardIds === 123 || cardIds === 126 || cardIds === 141 || cardIds === 158 || cardIds === 180 || cardIds === 315 || cardIds === 318 || cardIds === 330 || cardIds === 341 || cardIds === 348 || cardIds === 364 || cardIds === 396 || cardIds === 403 || cardIds === 433 || cardIds === 437 || cardIds === 488 || cardIds === 516 ) {
-                                cardIds++
-                            }
+                            var cardIds = Math.floor((Math.random()*526))  
                             allCardIdRecieved.push(cardIds)
+                            }
                             //console.log(cardId)
                             //console.log(i)
-                            if (chance>=1 && chance<=57) {
-                                cardRarityNo = 3
-                            } else if (chance>=58 && chance<=97) {
-                                cardRarityNo = 4
-                            } else if (chance>=98 && chance<=100) {
-                                cardRarityNo = 5
-                            }
-                            gotRarities+=cardRarityNo
+                        if (chance>=1 && chance<=57) {
+                           cardRarityNo = 3
+                        } else if (chance>=58 && chance<=97) {
+                            cardRarityNo = 4
+                        } else if (chance>=98 && chance<=100) {
+                            cardRarityNo = 5
                         }
+                        gotRarities+=cardRarityNo
+                    }
+                    for (let Id of allCardsRecieved) {
+                    if (Id === 1 || Id === 2) { Id =3 }
+                    if (Id === 44 || Id === 122 || Id === 123 || Id === 126 || Id === 141 || Id === 158 || Id === 180 || Id === 315 || Id === 318 || Id === 330 || Id === 341 || Id === 348 || Id === 364 || Id === 396 || Id === 403 || Id === 433 || Id === 437 || Id === 488 || Id === 516 ) {
+                        Id = Id+1
+                    }
+
+                    for (let words of arguments) {
+                        if (words.toLowerCase() === 'ur') {
+                            gotRarities[0] = 5
+                        }
+                    }
                         let rarityRecieved = ''
                         let allRarityRecieved = []
                         for(let eachCardRarity of gotRarities) {
@@ -1142,7 +1150,7 @@ module.exports = {
                             .setImage('attachment://pack.png')
                             //.setImage(`https://images-ext-1.discordapp.net/external/f_JUHSZMo_iIBjEw-8BuZUV87jxszrgaId1EYIsrWv8/https/images-ext-2.discordapp.net/external/5h8Ft5MRCb9FmYlUsT220MGfh7i7yrDp2mPbKXJLlsU/https/images-ext-1.discordapp.net/external/UB5EKO5TGAFdE2UHSkTz_GKEMMV_ZgYRQ5pmhK0XnME/https/images-ext-2.discordapp.net/external/RbeQMn91CZtIgt0CRTw5_VGQ3H-PT4QTj-h6FZ-MmI8/https/images-ext-2.discordapp.net/external/HD0NjjqqY_xfttHZYBQ3qxy4jZvhh8QsWsPZcoUriSg/https/images-ext-2.discordapp.net/external/8NJyq6wOTFhB7sV5aZZPM0sxVFu-OqbqA_r3_ICuWjQ/https/images-ext-2.discordapp.net/external/AobYlw89XPgp-M3JO6iaFil57Kebob1IiEI1Gj-WsYM/https/images-ext-1.discordapp.net/external/kkksUy6_ndRNH4FMfF_HjdKdj9cSdzTQ3tTgS_s1yyM/https/images-ext-2.discordapp.net/external/1pMUJZCNS-yfcutpPnM2eDIUcgjdUb8wq-LAlZM2fR0/https/images-ext-1.discordapp.net/external/4HwlXd41JDHUSGTnM-ce-QhnskgFaRyjDeMQRfD5YSo/https/images-ext-1.discordapp.net/external/xSNDHHsVGgPyY-f-9G_3Uak_N45Fy8GCo4NqmE29qPs/https/images-ext-2.discordapp.net/external/V48ALmFdzKnukxMTxmOM5k_F8LwvUn8k2PZAr6gpNS4/https/images-ext-2.discordapp.net/external/_gXH4EtzH7OhPK-qv2YtLP0Q_J-PEVoXX6JgonG9YC8/https/media.discordapp.net/attachments/784430986532356106/833002587774255144/image0.png`)
 
-                        message.channel.send({ embed : PackEmbed , files: [attachment] })
+                        message.channel.send({ embeds : [PackEmbed] , files: [attachment] })
                         // console.log(allRarityRecieved)
                         // console.log(allCardIdRecieved)
                         // console.log(allCardsRecieved)

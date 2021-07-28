@@ -3,7 +3,7 @@ module.exports = {
     commands : ['changerole', 'rolechange','changeroles', 'roleschange'],
     callback : async (client, message, arguments, text) => {
         const { guild, member } = message;
-        if (!member.hasPermission("MANAGE_ROLES")) {
+        if (!member.permissions.has("MANAGE_ROLES")) {
           message.reply(`You need permissions: \`MANAGE_ROLES\``);
           return;
         }   

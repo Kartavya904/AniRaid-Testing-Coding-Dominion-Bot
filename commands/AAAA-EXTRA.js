@@ -1,5 +1,5 @@
 module.exports = {
-    commands : ['Extra', 'ExtraFile'],
+    commands : ['extra', 'extrafile'],
     callback : (client, message, arguments, text) => {
         message.channel.send(`KEKW`)
     }

@@ -18,7 +18,7 @@ module.exports = {
                 // .addField(`**#3 | Epic Pack | 50000 Fake Gold**`,`Contains | 5x Fake Cards\n**[50% R / 50% SR / 0.4% UR]**`,false)
                 // .addField(`**#4 | Legendary Pack | 100000 Fake Gold**`,`Contains | 5x Fake Cards\n**[57% R / 40% SR / 3% UR]**`,false)
         
-            message.channel.send(shopEmbed)
+            message.channel.send( { embeds :[shopEmbed] } )
         }
     }
 }

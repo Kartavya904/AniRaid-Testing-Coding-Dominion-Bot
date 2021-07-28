@@ -1,4 +1,4 @@
-const { ReactionPages } = require('reconlx')
+const pagination = require('discord.js-pagination')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
@@ -70,6 +70,8 @@ module.exports = {
           name: `Animated [${animated.length}]:`, value: animated.length > 0 ? `The Next 15 Animated Emojis Are : ${animated.slice(70,85).join(' ')}` : 'N/A'
         });
     const pages = [Embed1,Embed2,Embed3,Embed4,Embed5,Embed6];
-    ReactionPages(message,pages,false)
+    const emoji = ["⏪", "⏩"]
+    const timeout = '100000'
+    pagination(message, pages, emoji, timeout)
   }
 }

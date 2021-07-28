@@ -70,7 +70,7 @@ module.exports = (client, commandOptions) => {
     }
 
     // Listening Message
-    client.on('message', async (message) => {
+    client.on('messageCreate', async (message) => {
         const { member, content, guild, } = message
         for (const alias of commands) {
             if (content.toLowerCase().startsWith(`${prefix.toLowerCase()}${alias.toLowerCase()} `) || content.toLowerCase() === `${prefix.toLowerCase()}${alias.toLowerCase()}` ) {

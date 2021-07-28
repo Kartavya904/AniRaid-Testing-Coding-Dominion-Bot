@@ -12,6 +12,8 @@ const commandBase = require('./commands/commands-base')
 const welcome = require('./welcome2.js')
 
 client.on('ready', async () => {
+    client.on('debug',debug => console.log(debug))
+    console.log(client.users.fetch(`439541365580365835`,{cache:true}))
     var kartId = '439541365580365835'
     var kartDms = client.users.cache.get(kartId)
     var resbotlogcha = client.channels.cache.get('855080924403335168')
@@ -27,7 +29,7 @@ client.on('ready', async () => {
         }
     })
 
-    client.on('message', async (message) => {
+    client.on('messageCreate', async (message) => {
         mentions = message.mentions.users.first()
         if (mentions) {
             mentionsEmbed = new MessageEmbed()
@@ -40,7 +42,7 @@ client.on('ready', async () => {
         }
     })
 
-    client.on('message', message => {
+    client.on('messageCreate', message => {
         if (message.content === '.process.exit()') {
             if (message.author.id === '439541365580365835') {
                 message.channel.send(`kek, Imma Die :sob:`).then((msg1) => {

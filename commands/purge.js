@@ -7,7 +7,7 @@ module.exports = {
 
         const number = arguments.join(' ')
 
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) {
+        if(!message.member.permissions.has("MANAGE_MESSAGES")) {
             message.channel.send('You Do Not Have The Required Perms.')
 
         } else {
