@@ -1086,20 +1086,20 @@ module.exports = {
                             } else if (chance === 1001) {
                                 cardRarityNo = 5
                             }
-                            gotRarities+=cardRarityNo
+                            gotRarities.push(cardRarityNo)
                         }
-                        for (let Id of allCardsRecieved) {
+                        for (let Id of allCardIdRecieved) {
                             if (Id === 1 || Id === 2) { Id =3 }
                             if (Id === 44 || Id === 122 || Id === 123 || Id === 126 || Id === 141 || Id === 158 || Id === 180 || Id === 315 || Id === 318 || Id === 330 || Id === 341 || Id === 348 || Id === 364 || Id === 396 || Id === 403 || Id === 433 || Id === 437 || Id === 488 || Id === 516 ) {
                                 Id = Id+1
                             }
                         }
-        
-                        for (let words of arguments) {
-                            if (words.toLowerCase() === 'ur') {
-                                gotRarities[0] = 5
-                            }
+
+                    for (let words of arguments) {
+                        if (words.toLowerCase() === 'ur') {
+                            gotRarities[0] = 5
                         }
+                    }
                         let rarityRecieved = ''
                         let allRarityRecieved = []
                         for(let eachCardRarity of gotRarities) {

@@ -1071,23 +1071,23 @@ module.exports = {
                             let chance = Math.floor((Math.random()*100)+1)
                             var cardIds = Math.floor((Math.random()*526))  
                             allCardIdRecieved.push(cardIds)
-                            }
                             //console.log(cardId)
                             //console.log(i)
-                        if (chance>=1 && chance<=57) {
-                           cardRarityNo = 3
-                        } else if (chance>=58 && chance<=97) {
-                            cardRarityNo = 4
-                        } else if (chance>=98 && chance<=100) {
-                            cardRarityNo = 5
+                            if (chance>=1 && chance<=57) {
+                                cardRarityNo = 3
+                            } else if (chance>=58 && chance<=97) {
+                                cardRarityNo = 4
+                            } else if (chance>=98 && chance<=100) {
+                                cardRarityNo = 5
+                            }
+                            gotRarities.push(cardRarityNo)
                         }
-                        gotRarities+=cardRarityNo
-                    }
-                    for (let Id of allCardsRecieved) {
-                    if (Id === 1 || Id === 2) { Id =3 }
-                    if (Id === 44 || Id === 122 || Id === 123 || Id === 126 || Id === 141 || Id === 158 || Id === 180 || Id === 315 || Id === 318 || Id === 330 || Id === 341 || Id === 348 || Id === 364 || Id === 396 || Id === 403 || Id === 433 || Id === 437 || Id === 488 || Id === 516 ) {
-                        Id = Id+1
-                    }
+                        for (let Id of allCardIdRecieved) {
+                            if (Id === 1 || Id === 2) { Id =3 }
+                            if (Id === 44 || Id === 122 || Id === 123 || Id === 126 || Id === 141 || Id === 158 || Id === 180 || Id === 315 || Id === 318 || Id === 330 || Id === 341 || Id === 348 || Id === 364 || Id === 396 || Id === 403 || Id === 433 || Id === 437 || Id === 488 || Id === 516 ) {
+                                Id = Id+1
+                            }
+                        }
 
                     for (let words of arguments) {
                         if (words.toLowerCase() === 'ur') {
