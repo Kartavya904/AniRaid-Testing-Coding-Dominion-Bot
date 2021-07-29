@@ -74,7 +74,7 @@ module.exports = {
             const { title, postLink, url, subreddit } = data
             const filter = (reaction, user) => reaction.emoji.name === '🗑️' && user.id !== '840646484935835698' && user.id === message.author.id
             message.channel.send({
-              embed: {
+              embeds: [{
                 color: "BLURPLE",
                 title: `${title}`,
                 url: `${postLink}`,
@@ -82,7 +82,7 @@ module.exports = {
                   url: url
                 },
                 footer: { text: `/reddit/${subreddit}` }
-              }
+              }]
             }).then(msg => {
               msg.react('🗑️')
               //msg.react('⚠️')

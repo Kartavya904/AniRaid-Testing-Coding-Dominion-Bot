@@ -29,7 +29,7 @@ module.exports = {
             const { title, postLink, url, subreddit } = data
     
             message.channel.send({
-              embed: {
+              embeds: [{
                 color: "BLURPLE",
                 title: `${title}`,
                 url: `${postLink}`,
@@ -37,7 +37,7 @@ module.exports = {
                   url: url
                 },
                 footer: { text: `/reddit/${subreddit}` }
-              }
+              }]
             });
         } catch(error) {
             this.client.emit("apiError", error, message);

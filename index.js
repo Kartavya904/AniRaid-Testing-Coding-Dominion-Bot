@@ -9,7 +9,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const { token } = require('./config.json')
 
 const commandBase = require('./commands/commands-base')
-const welcome = require('./welcome2.js')
+const welcome = require('./welcome2')
 
 client.on('ready', async () => {
     client.on('debug',debug => console.log(debug))
@@ -41,6 +41,15 @@ client.on('ready', async () => {
             }
         }
     })
+
+    // client.on('guildMemberAdd', (member) => {
+    //     console.log(`${member.username}, Just Joined ${member.guild.name}`)
+    //     if (member.guild.id === '769281523597181028') {
+    //         const msg = `Test Welcome`
+    //         const channel = member.guild.channels.cache.get('848271927281582080')// welcome Channel
+    //         channel.send(msg)
+    //     }
+    // })
 
     client.on('messageCreate', message => {
         if (message.content === '.process.exit()') {
