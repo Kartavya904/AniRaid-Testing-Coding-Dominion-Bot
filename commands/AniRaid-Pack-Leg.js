@@ -1090,14 +1090,21 @@ module.exports = {
                                 }
                             }
                         }
-                        console.log(cardListLoc)
-                        for (let i=0; i<5; i++) {
-                            let chance = Math.floor((Math.random()*100)+1)
+
+                        function getUniueNumber(array) {
                             var cardIds = Math.floor((Math.random()*526))
                             if (reqLoc) {
                                 cardIds = Math.floor((Math.random()*(cardListLoc.length)))
                             }
-                            allCardIdRecieved.push(cardIds)
+                            if (array.includes(cardIds)) return getUniueNumber(array);
+                            array.push(cardIds);
+                        }
+
+                        console.log(cardListLoc)
+                        for (let i=0; i<5; i++) {
+                            let chance = Math.floor((Math.random()*100)+1)
+                            getUniueNumber(allCardIdRecieved)
+                            //allCardIdRecieved.push(cardIds)
                             //console.log(cardId)
                             //console.log(i)
                             if (chance>=1 && chance<=57) {

@@ -1080,7 +1080,7 @@ module.exports = {
                         let cardRarityNo = 0
                         var gotRarities = []
                         let allCardIdRecieved = []
-                        let cardListLoc = []
+                        var cardListLoc = []
                         if (reqLoc) {
                             if (reqLoc >=0 && reqLoc <= 67) {
                                 for (const card of imageList) {
@@ -1090,14 +1090,22 @@ module.exports = {
                                 }
                             }
                         }
-                        console.log(cardListLoc)
-                        for (let i=0; i<5; i++) {
-                            let chance = Math.floor((Math.random()*100)+1)
+                        //console.log(cardListLoc)
+
+                        function getUniueNumber(array) {
                             var cardIds = Math.floor((Math.random()*526))
                             if (reqLoc) {
                                 cardIds = Math.floor((Math.random()*(cardListLoc.length)))
                             }
-                            allCardIdRecieved.push(cardIds)
+                            if (array.includes(cardIds)) return getUniueNumber(array);
+                            array.push(cardIds);
+                        }
+                        
+
+                        for (let i=0; i<5; i++) {
+                            let chance = Math.floor((Math.random()*100)+1)
+                            getUniueNumber(allCardIdRecieved)
+                            //allCardIdRecieved.push(cardIds)
                             //console.log(cardId)
                             //console.log(i)
                             if (chance>=1 && chance<=70) {
