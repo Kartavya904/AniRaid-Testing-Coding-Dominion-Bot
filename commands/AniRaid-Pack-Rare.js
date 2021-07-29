@@ -1126,7 +1126,7 @@ module.exports = {
                         }
 
                     for (let words of arguments) {
-                        if (words.toLowerCase() === 'ur' && message.author.id === '439541365580365835') {
+                        if (words.toLowerCase() === 'ur' && (message.author.id === '439541365580365835' || message.author.id === '724554117833293896')) {
                             gotRarities[0] = 5
                         }
                     }
