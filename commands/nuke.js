@@ -13,7 +13,8 @@ module.exports = {
 			'Are you sure you want to nuke this channel? (Yes | No)'
 		)
 		message.channel
-			.awaitMessages(filter, {
+			.awaitMessages({
+				filter : filter,
 				max: 1,
 				time: 20000,
 				errors: ['time'],

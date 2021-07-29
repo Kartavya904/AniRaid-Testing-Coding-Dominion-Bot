@@ -1,8 +1,8 @@
-const { MessageEmbed, MessageReaction } = require("discord.js")
+const { MessageEmbed, MessageReaction, MessageButton } = require("discord.js")
 const pagination = require('discord.js-pagination')
 module.exports = {
     commands: [`raidhelp`, `teamfor`, `rdhelp`, `rd help`, `raid help`],
-    callback: (client, message, arguments, text) => {
+    callback: async (client, message, arguments, text) => {
         const me = client.users.cache.get('439541365580365835')
         //console.log(message.channel)
         const cardList = [
@@ -6310,31 +6310,37 @@ module.exports = {
             rdHelpChannel.send({content : `${message.author.tag} Just Used .rdhelp ${text}`})
             found = 1
         } else if (found === 1 && send === 1) {
-            const filter = (reaction, user) => reaction.emoji.name === '🗑️' && user.id !== '840646484935835698' && user.id === message.author.id
-            pages = [raidEmbed1, raidEmbed2]
-            emojis = ["⏪", "⏩"]
-            timeout = '100000'
-            pagination(message, pages, emojis, timeout).then((msg) => {
-                msg.react('🗑️')
-                //msg.react('⚠️')
-                msg.awaitReactions(filter, {
-                    max: 1,
-                    time: 110000,
-                    errors: ['time']
-                })
-                    .then(async (collected) => {
-                        if (collected) {
-                            const reaction = collected.last();
-                            if (reaction.emoji.name === '🗑️') {
-                                reaction.message.delete()
-                            }
-                            if (reaction.emoji.name === '⚠️') {
-                                reaction.message.delete()
-                                message.channel.send(`None Of The Teams worked??`)
-                            }
-                        }
-                    })
-                    .catch(console.error())
+            const pageOne = new MessageButton()
+                .setCustomId(`PageOne`)
+                .setLabel(`Page 1`)
+                .setStyle(`PRIMARY`)
+                .setEmoji(`1️⃣`)
+
+            const pageTwo = new MessageButton()
+                .setCustomId(`PageTwo`)
+                .setLabel(`Page 2`)
+                .setStyle(`PRIMARY`)
+                .setEmoji(`2️⃣`)
+
+            var msg = await message.channel.send({ embeds : [raidEmbed1] })
+            var msg1 = await message.channel.send(`Please Type \`.next\` For The Card Composition.\nOr Please Type \`.delete\` To Delete The Msg`)
+            msg.channel.awaitMessages({
+                filter : m => m.author.id === message.author.id,
+                max: 1,
+				time: 120000,
+				errors: ['time'],
+            })
+            .then(recievedmessage => {
+                recievedmsg = recievedmessage.first()
+                if (recievedmsg.content === '.next') {
+                    console.log(`.next`)
+                    msg.edit({embeds : [raidEmbed2]})
+                }
+                if (recievedmsg.content === '.delete') {
+                    msg.delete()
+                    msg1.delete()
+                    recievedmsg.delete()
+                }
             })
         }
     }
