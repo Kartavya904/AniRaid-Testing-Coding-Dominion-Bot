@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageReaction, MessageButton } = require("discord.js")
+const { MessageEmbed, MessageReaction, MessageButton, MessageActionRow, Interaction, ButtonInteraction } = require("discord.js")
 const pagination = require('discord.js-pagination')
 module.exports = {
     commands: [`raidhelp`, `teamfor`, `rdhelp`, `rd help`, `raid help`],
@@ -6251,7 +6251,7 @@ module.exports = {
                                     .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
                                     .setTitle(`**__Card Composition__**:`)
                                     .setDescription(`**Showing All Possible Teams To Use For ${data.cardName} Raid's\n\n*(Sr/Ur) Means Either Of Sr Or Ur Can Work\nFor (Ur 1250/Sr 1350/R 1500) And Lower ${data.cardName} Raids**.\n\n**__Basic Composition__** : \n${data.basicComposition}\n\n${data.cardTeams}`)
-                                    .addField('**__Few Errors & Some Suggestions__**?', `Please Dm ${me.tag}, If You Find Any Errors/Have Some Other Team Suggestions For ${data.cardName}.`, false)
+                                    //.addField('**__Few Errors & Some Suggestions__**?', `Please Dm ${me.tag}, If You Find Any Errors/Have Some Other Team Suggestions For ${data.cardName}.`, false)
                                     .setThumbnail(eachCard[3])
                                     .setColor(data.cardColor)
                                     .setFooter(`Please Dm ${me.tag}, If You Find Any Errors.\nRequested By ${message.member.displayName}`, message.author.displayAvatarURL({ dynamic: true }))
@@ -6310,38 +6310,72 @@ module.exports = {
             rdHelpChannel.send({content : `${message.author.tag} Just Used .rdhelp ${text}`})
             found = 1
         } else if (found === 1 && send === 1) {
-            const pageOne = new MessageButton()
-                .setCustomId(`PageOne`)
-                .setLabel(`Page 1`)
-                .setStyle(`PRIMARY`)
-                .setEmoji(`1️⃣`)
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId(`PageOne`)
+                        .setLabel(`Page 1`)
+                        .setStyle(`PRIMARY`)
+                        .setEmoji(`1️⃣`),
+                    new MessageButton()
+                        .setCustomId(`PageTwo`)
+                        .setLabel(`Page 2`)
+                        .setStyle(`PRIMARY`)
+                        .setEmoji(`2️⃣`),
+                    new MessageButton()
+                        .setCustomId(`Delete`)
+                        .setLabel(`Delete`)
+                        .setStyle(`PRIMARY`)
+                        .setEmoji(`🗑️`)
+                )
+            var msg = await message.channel.send({ embeds : [raidEmbed1], components : [row]})
+            function interact(msg) {
+                const collector = msg.createMessageComponentCollector({
+                    componentType : 'BUTTON',
+                    time : 120000
+                });
+                collector.on('collect', async recievedInteraction => {
+                    if (recievedInteraction.user.id === message.author.id) {
+                        recievedInteraction.deferUpdate()
+                        //console.log(recievedInteraction)
+                        if (recievedInteraction.customId === 'PageOne') {
+                            //console.log(recievedInteraction)
+                            await recievedInteraction.message.edit({ embeds : [raidEmbed1], components : [row]})                            
+                        }
+                        if (recievedInteraction.customId === 'PageTwo') {
+                            //console.log(recievedInteraction)
+                            await recievedInteraction.message.edit({ embeds : [raidEmbed2], components : [row]})
+                        }
+                        if (recievedInteraction.customId === 'Delete') {
+                            //console.log(recievedInteraction)
+                            msg.delete()
+                        }
+                    }
+                })
+            }
+            interact(msg)
 
-            const pageTwo = new MessageButton()
-                .setCustomId(`PageTwo`)
-                .setLabel(`Page 2`)
-                .setStyle(`PRIMARY`)
-                .setEmoji(`2️⃣`)
 
-            var msg = await message.channel.send({ embeds : [raidEmbed1] })
-            var msg1 = await message.channel.send(`Please Type \`.next\` For The Card Composition.\nOr Please Type \`.delete\` To Delete The Msg`)
-            msg.channel.awaitMessages({
-                filter : m => m.author.id === message.author.id,
-                max: 1,
-				time: 120000,
-				errors: ['time'],
-            })
-            .then(recievedmessage => {
-                recievedmsg = recievedmessage.first()
-                if (recievedmsg.content === '.next') {
-                    console.log(`.next`)
-                    msg.edit({embeds : [raidEmbed2]})
-                }
-                if (recievedmsg.content === '.delete') {
-                    msg.delete()
-                    msg1.delete()
-                    recievedmsg.delete()
-                }
-            })
+            // var msg = await message.channel.send({ embeds : [raidEmbed1] })
+            // var msg1 = await message.channel.send(`Please Type \`.next\` For The Card Composition.\nOr Please Type \`.delete\` To Delete The Msg`)
+            // msg.channel.awaitMessages({
+            //     filter : m => m.author.id === message.author.id,
+            //     max: 1,
+			// 	time: 120000,
+			// 	errors: ['time'],
+            // })
+            // .then(recievedmessage => {
+            //     recievedmsg = recievedmessage.first()
+            //     if (recievedmsg.content === '.next') {
+            //         console.log(`.next`)
+            //         msg.edit({embeds : [raidEmbed2]})
+            //     }
+            //     if (recievedmsg.content === '.delete') {
+            //         msg.delete()
+            //         msg1.delete()
+            //         recievedmsg.delete()
+            //     }
+            // })
         }
     }
 }
