@@ -226,9 +226,9 @@ module.exports = {
                 } else if (word.toLowerCase() === 'exp' || word.toLowerCase() === 'expert' || word.toLowerCase() === '-exp' || word.toLowerCase() === '-expert') {
                     givenRole = 'Expert Raider'
                 }
-            }// else {
-            //     message.channel.send(givenRoleErrorEmbed)
-            // }
+            } else {
+                message.channel.send(givenRoleErrorEmbed)
+            }
         }
 
         // Role Pings 
@@ -339,16 +339,41 @@ module.exports = {
             return message.channel.send(cardErrorEmbed)
         } else {
             //raidAnnouncementChannel.send(givenRolePing)
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('1')
+                        .setLabel(`Accept`)
+                        .setStyle('PRIMARY')
+                        .setEmoji(diffEmojis[0]),
+                    new MessageButton()
+                        .setCustomId('2')
+                        .setLabel(`Decline`)
+                        .setStyle('PRIMARY')
+                        .setEmoji(diffEmojis[1])
+                )
+            const rowDisabled = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setDisabled()
+                        .setCustomId('1')
+                        .setLabel(`Accept`)
+                        .setStyle('PRIMARY')
+                        .setEmoji(diffEmojis[0]),
+                    new MessageButton()
+                        .setDisabled()
+                        .setCustomId('2')
+                        .setLabel(`Decline`)
+                        .setStyle('PRIMARY')
+                        .setEmoji(diffEmojis[1])
+                )
             raidAnnouncementChannel.send({
-                content: `The Mention`,
-                buttons: [acceptBtn, declineBtn],
-                embeds: [rdAnnouncementEmbed]
+                content: `Mention, Testinf Mode On Rn`,
+                embeds: [rdAnnouncementEmbed],
+                components : [row]
             })
             //rdInfoChannel.send(`A.rdinfo/.rdinfo ${text}, was used by ${message.author.tag} in the Server : ${message.channel.guild.name} & Channel : ${message.channel.name}`)
         }
-    } else {
-        return
-        //message.channel.send(`This Command Can Only Be Used In The AniRaid Official Server.`)
     }
     }
 }
