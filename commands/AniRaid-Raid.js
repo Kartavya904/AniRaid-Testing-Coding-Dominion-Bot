@@ -237,11 +237,11 @@ module.exports = {
         let givenRolePing = ''
         for (givenRole of rolestoPing) {
             if (givenRole === 'New Raider') {
-                givenRolePing += '<@867775891296092210> '
+                givenRolePing += '<&@867775891296092210> '
             } else if (givenRole === 'Average Raider') {
-                givenRolePing += '<@867775894859939920> '
+                givenRolePing += '<&@867775894859939920> '
             } else if (givenRole === 'Expert Raider') {
-                givenRolePing += '<@867775900044361750> '
+                givenRolePing += '<&@867775900044361750> '
         }
         }
 
@@ -405,3 +405,19 @@ module.exports = {
     }
     }
 }
+
+
+
+
+
+
+// const { MessageEmbed } = require('discord.js')
+// const embed = new MessageEmbed()
+//     .setTitle(`Raid Announcement Command:`)
+//     .setColor('000000')
+//     .setDescription(`\`\`\`<> => required\n[] => not required\nA.raid <Rarity> <Level> <Raid Boss Name> [-evo <Evolution No.>] [-diff <Difficulty>] <-code <Lobby Code>> -<new, average, expert>\`\`\`\n\nexample: \`A.raid ur 1250 Izumo [-evo 3 -diff Imp] -code 123456 -new -average -expert\`\n\nPrivate Raid Announcement:\n- By just typing \`a.raid\`, the raid announcement process will commence within your direct messages with <@868074739321688065>\n\nElements:\nRarities : common(c), uncommon(uc), rare(r), super rare(sr), ultra rare(ur)\n\nEvolution No. : 1,2,3  ‍  ‍  ‍  ‍ (3 as default)\n\nDifficulties : easy(e), medium(m)(med), hard(h), impossible(i)(imp) ‍  ‍  ‍  ‍ (impossible(i) as default)\n\nRaid Ping : -new, -average(-avg), -expert(-exp)  ‍  ‍  ‍  ‍  Can Ping Multiple At Once.`)
+//     .setFooter(client.user.username, client.user.displayAvatarURL({dynamic : true}))
+//     .setTimestamp()
+// message.channel.send({embeds : [embed]}).then(msg => {
+//     message.delete()
+// })
