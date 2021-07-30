@@ -213,18 +213,20 @@ module.exports = {
         }
 
         // Role Check
-
-        let givenRole ;
+        let rolestoPing = []
         for (let word of arguments) {
             if (word.toLowerCase() === 'new' || word.toLowerCase() === '-new' || word.toLowerCase() === 'avg' || word.toLowerCase() === 'average' || word.toLowerCase() === '-avg' || word.toLowerCase() === '-average' || word.toLowerCase() === 'exp' || word.toLowerCase() === 'expert' || word.toLowerCase() === '-exp' || word.toLowerCase() === '-expert') {
                 wordList=wordList.filter(eachWord => eachWord.toLowerCase() !== word.toLowerCase())
                 wordList=wordList.filter(eachWord => eachWord.toLowerCase() !== 'raider' || eachWord.toLowerCase() !== 'raid' || eachWord.toLowerCase() !== 'raiders' || eachWord.toLowerCase() !== 'raids')
                 if (word.toLowerCase() === 'new' || word.toLowerCase() === '-new') {
-                    givenRole = 'New Raider'
+                    const givenRole = 'New Raider'
+                    rolestoPing.push(givenRole)
                 } else if (word.toLowerCase() === 'avg' || word.toLowerCase() === 'average' || word.toLowerCase() === '-avg' || word.toLowerCase() === '-average') {
-                    givenRole = 'Average Raider'
+                    const givenRole = 'Average Raider'
+                    rolestoPing.push(givenRole)
                 } else if (word.toLowerCase() === 'exp' || word.toLowerCase() === 'expert' || word.toLowerCase() === '-exp' || word.toLowerCase() === '-expert') {
-                    givenRole = 'Expert Raider'
+                    const givenRole = 'Expert Raider'
+                    rolestoPing.push(givenRole)
                 }
             }// else {
             //     message.channel.send({embeds : [givenRoleErrorEmbed]})
@@ -232,13 +234,15 @@ module.exports = {
         }
 
         // Role Pings 
-
-        if (givenRole === 'New Raider') {
-            givenRolePing = '<@&867775891296092210>'
-        } else if (givenRole === 'Average Raider') {
-            givenRolePing = '<@&867775894859939920>'
-        } else if (givenRole === 'Expert Raider') {
-            givenRolePing = '<@&867775900044361750>'
+        let givenRolePing = ''
+        for (givenRole of rolestoPing) {
+            if (givenRole === 'New Raider') {
+                givenRolePing += '<@867775891296092210> '
+            } else if (givenRole === 'Average Raider') {
+                givenRolePing += '<@867775894859939920> '
+            } else if (givenRole === 'Expert Raider') {
+                givenRolePing += '<@867775900044361750> '
+        }
         }
 
         var cardFound = 0
@@ -271,7 +275,7 @@ module.exports = {
                         .addField(`**Power Level:**`,`${rdPl}\n ‍ `,false)
                         .addField(`**Boss Name:**`,`${eachCard[0]}\n ‍ `,false)
                         .addField(`**Code:**`,`${givenCode}\n ‍ `,false)
-                        .addField(`**Preferred Raiders:**`,`${givenRole}\n ‍ `,false)
+                        .addField(`**Preferred Raiders:**`,`${rolestoPing.join('\n')}\n ‍ `,false)
                         .setFooter(client.user.username, client.user.displayAvatarURL({dynamic:true}))
                         .setTimestamp()
 
@@ -298,7 +302,7 @@ module.exports = {
                             .addField(`**Power Level:**`,`${rdPl}\n ‍ `,false)
                             .addField(`**Boss Name:**`,`${eachCard[0]}\n ‍ `,false)
                             .addField(`**Code:**`,`${givenCode}\n ‍ `,false)
-                            .addField(`**Preferred Raiders:**`,`${givenRole}\n ‍ `,false)
+                            .addField(`**Preferred Raiders:**`,`${rolestoPing.join('\n')}\n ‍ `,false)
                             .setFooter(client.user.username, client.user.displayAvatarURL({dynamic:true}))
                             .setTimestamp()
 
@@ -368,7 +372,7 @@ module.exports = {
                         .setEmoji(diffEmojis[1])
                 )
             const msg = await raidAnnouncementChannel.send({
-                content: `Mention, Testing Mode On Rn`,
+                content: `${givenRolePing}`,
                 embeds: [rdAnnouncementEmbed],
                 components : [row]
             })
