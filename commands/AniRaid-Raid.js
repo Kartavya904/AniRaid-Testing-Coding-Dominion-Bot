@@ -1,8 +1,8 @@
-const { MessageEmbed, MessageButton } = require("discord.js")
+const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js")
 module.exports = {
     commands : ['raid', 'rd'],
     callout : 1,
-    callback : (client, message, arguments, text) => {
+    callback : async(client, message, arguments, text) => {
         if (message.guild.id === '867432813557317662') {
         var wordList = text.replace('.rdinfo','').split(/[ ]+/)
         const cardList = [
@@ -98,7 +98,7 @@ module.exports = {
             }
         }
         if (found === 0) {
-           return message.channel.send(rarityErrorEmbed)
+           return message.channel.send({embeds : [rarityErrorEmbed]})
         }
 
         // Evolution Check 
@@ -117,10 +117,10 @@ module.exports = {
                         if (expectedEvo<1 || expectedEvo>3) {
                             givenEvo = 3
                         }
-                    } else return message.channel.send(evoErrorEmbed)
+                    } else return message.channel.send({embeds : [evoErrorEmbed]})
                     //wordList-=`${givenEvo}`
                 } else {
-                    return message.channel.send(evoErrorEmbed)
+                    return message.channel.send({embeds : [evoErrorEmbed]})
                 }
             }
         }
@@ -130,7 +130,7 @@ module.exports = {
         let givenLevel = wordList.map(words => parseInt(words)).filter(words => !isNaN(words))[0];
         wordList=wordList.filter(eachWord => eachWord !== `${givenLevel}`)
         if (!givenLevel) {
-            return message.channel.send(levelErrorEmbed)
+            return message.channel.send({embeds : [levelErrorEmbed]})
         }
 
         // RarityCounter Set
@@ -185,9 +185,9 @@ module.exports = {
                             DiffCounter = 2000 
                             DiffTimer = 4
                         }
-                    } else return message.channel.send(diffErrorEmbed)
+                    } else return message.channel.send({embeds : [diffErrorEmbed]})
                 } else {
-                    return message.channel.send(diffErrorEmbed)
+                    return message.channel.send({embeds : [diffErrorEmbed]})
                 }
             }
         }
@@ -206,10 +206,10 @@ module.exports = {
             if (givenCode>=100000 && givenCode<=999999) {
                 givenCode=parseInt(givenCode)
             } else {
-                message.channel.send(codeLenErrorEmbed)
+                message.channel.send({embeds : [codeLenErrorEmbed]})
             }
         } else {
-            message.channel.send(codeErrorEmbed)
+            message.channel.send({embeds : [codeErrorEmbed]})
         }
 
         // Role Check
@@ -226,9 +226,9 @@ module.exports = {
                 } else if (word.toLowerCase() === 'exp' || word.toLowerCase() === 'expert' || word.toLowerCase() === '-exp' || word.toLowerCase() === '-expert') {
                     givenRole = 'Expert Raider'
                 }
-            } else {
-                message.channel.send(givenRoleErrorEmbed)
-            }
+            }// else {
+            //     message.channel.send({embeds : [givenRoleErrorEmbed]})
+            // }
         }
 
         // Role Pings 
@@ -266,13 +266,13 @@ module.exports = {
                         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic:true}))
                         .setDescription(`**<@${message.author.id}>'s Raid Summary**\n ‍ `)
                         .setThumbnail(eachCard[3])
-                        .setColor(`0x00FFFF`)
+                        .setColor(`000000`)
                         .addField(`**Rarity of Raid:**`,`${givenRarity}\n ‍ `,false)
                         .addField(`**Power Level:**`,`${rdPl}\n ‍ `,false)
                         .addField(`**Boss Name:**`,`${eachCard[0]}\n ‍ `,false)
                         .addField(`**Code:**`,`${givenCode}\n ‍ `,false)
                         .addField(`**Preferred Raiders:**`,`${givenRole}\n ‍ `,false)
-                        .setFooter(client.user.tag, client.user.displayAvatarURL({dynamic:true}))
+                        .setFooter(client.user.username, client.user.displayAvatarURL({dynamic:true}))
                         .setTimestamp()
 
                     break
@@ -293,13 +293,13 @@ module.exports = {
                             .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic:true}))
                             .setDescription(`**<@${message.author.id}>'s Raid Summary**\n ‍ `)
                             .setThumbnail(eachCard[3])
-                            .setColor(`0x00FFFF`)
+                            .setColor(`000000`)
                             .addField(`**Rarity of Raid:**`,`${givenRarity}\n ‍ `,false)
                             .addField(`**Power Level:**`,`${rdPl}\n ‍ `,false)
                             .addField(`**Boss Name:**`,`${eachCard[0]}\n ‍ `,false)
                             .addField(`**Code:**`,`${givenCode}\n ‍ `,false)
                             .addField(`**Preferred Raiders:**`,`${givenRole}\n ‍ `,false)
-                            .setFooter(client.user.tag, client.user.displayAvatarURL({dynamic:true}))
+                            .setFooter(client.user.username, client.user.displayAvatarURL({dynamic:true}))
                             .setTimestamp()
 
                         break
@@ -336,7 +336,7 @@ module.exports = {
             .setEmoji(diffEmojis[1])
 
         if (cardFound === 0) {
-            return message.channel.send(cardErrorEmbed)
+            return message.channel.send({embeds : [cardErrorEmbed]})
         } else {
             //raidAnnouncementChannel.send(givenRolePing)
             const row = new MessageActionRow()
@@ -355,24 +355,48 @@ module.exports = {
             const rowDisabled = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
-                        .setDisabled()
+                        .setDisabled(true)
                         .setCustomId('1')
                         .setLabel(`Accept`)
                         .setStyle('PRIMARY')
                         .setEmoji(diffEmojis[0]),
                     new MessageButton()
-                        .setDisabled()
+                        .setDisabled(true)
                         .setCustomId('2')
                         .setLabel(`Decline`)
                         .setStyle('PRIMARY')
                         .setEmoji(diffEmojis[1])
                 )
-            raidAnnouncementChannel.send({
-                content: `Mention, Testinf Mode On Rn`,
+            const msg = await raidAnnouncementChannel.send({
+                content: `Mention, Testing Mode On Rn`,
                 embeds: [rdAnnouncementEmbed],
                 components : [row]
             })
-            //rdInfoChannel.send(`A.rdinfo/.rdinfo ${text}, was used by ${message.author.tag} in the Server : ${message.channel.guild.name} & Channel : ${message.channel.name}`)
+
+            function interact(msg) {
+                const collector = msg.createMessageComponentCollector({
+                    componentType : 'BUTTON',
+                    time : 120000
+                });
+                collector.on('collect', async recievedInteraction => {
+                    if (recievedInteraction.user.id === message.author.id) {
+                        recievedInteraction.deferUpdate()
+                        //console.log(recievedInteraction)
+                        if (recievedInteraction.customId === '1') {
+                            //console.log(recievedInteraction)
+                            await recievedInteraction.message.edit({ embeds : [rdAnnouncementEmbed], components : [rowDisabled]})                            
+                        }
+                        if (recievedInteraction.customId === '2') {
+                            //console.log(recievedInteraction)
+                            await recievedInteraction.message.delete()
+                        }
+                    }
+                })
+            }
+            interact(msg)
+
+
+
         }
     }
     }
