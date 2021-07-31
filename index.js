@@ -68,6 +68,53 @@ client.on('ready', async () => {
         }
     })
 
+    client.on("messageCreate", async message => {
+        if (message.author.id == '571027211407196161') {
+            message.embeds.forEach(async (e) => {
+                if (e.title && e.title == `**Raid Lobbies**`) {
+                    data = e.description
+                    c=0
+                    data.split('\n\n').forEach(eachData => {
+                        let card = eachData.toLowerCase()
+                        card.replace('*','')
+                        let RaidId = parseInt(card.split(' ')[9])
+                        if (!RaidId) {
+                            RaidId = parseInt(card.split(' ')[10])
+                            if (!RaidId) {
+                                RaidId = parseInt(card.split(' ')[11])
+                                if (!RaidId) {
+                                    RaidId = parseInt(card.split(' ')[12])
+                                    if (!RaidId) {
+                                        RaidId = parseInt(card.split(' ')[13])
+                                        if (!RaidId) {
+                                            RaidId = parseInt(card.split(' ')[14])
+                                            if (!RaidId) {
+                                                RaidId = ' ‍ '
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //console.log(RaidId)
+                        //console.log(eachData)
+                        if (card.includes('ririka momobami [impossible]') || card.includes(`alice zuberg [impossible]`) || card.includes(`artoria pendragon [impossible]`) || card.includes(`byakuya togami [impossible]`) || card.includes(`dio brando [impossible]`) || card.includes(`doppo kunikida [impossible]`) || card.includes(`echidna [impossible]`) || card.includes(`edward elric [impossible]`) || card.includes(`erza scarlet [impossible]`) || card.includes(`escanor [impossible]`) || card.includes(`fuutarou uesugi [impossible]`) || card.includes(`fuyumi yanagi [impossible]`) || card.includes(`garou [impossible]`) || card.includes(`gowther [impossible]`) || card.includes(`ikumi mito [impossible]`) || card.includes(`izumi kyoka [impossible]`) || card.includes(`izumo kamiki [impossible]`) || card.includes(`jellal fernandes [impossible]`) || card.includes(`kakine teitoku [impossible]`) || card.includes(`kenma kozume [impossible]`) || card.includes(`kurumi tokisaki [impossible]`) || card.includes(`liala [impossible]`) || card.includes(`loke [impossible]`) || card.includes(`mayuri [impossible]`) || card.includes(`motoyasu kitamura [impossible]`) || card.includes(`nico robin [impossible]`) || card.includes(`no face [impossible]`) || card.includes(`ranpo edogawa [impossible]`) || card.includes(`riko saikawa [impossible]`) || card.includes(`ritsu [impossible]`) || card.includes(`ritsu kageyama [impossible]`) || card.includes(`ritsu tainaka [impossible]`) || card.includes(`satoru gojo [impossible]`) || card.includes(`shalltear bloodfallen [impossible]`) || card.includes(`shion [impossible]`) || card.includes(`shoto todoroki [impossible]`) || card.includes(`sora [impossible]`) || card.includes(`takehisa hinawa [impossible]`) || card.includes(`tanjiro kamado [impossible]`) || card.includes(`violet evergarden [impossible]`) || card.includes(`wiz [impossible]`) || card.includes(`wolf [impossible]`) || card.includes(`yukina [impossible]`) || card.includes(`yuno gasai [impossible]`) || card.includes(`zombieman [impossible]`)) {
+                            if (card.includes('uncommon') ||card.includes('rare') || card.includes('super') || card.includes('ultra')) {
+                                if (card.includes('[0/6]') || card.includes('[1/6]') || card.includes('[2/6]') || card.includes('[3/6]') || card.includes('[4/6]') || card.includes('[5/6]')) {
+                                    client.users.cache.get(`439541365580365835`).send(card)
+                                    client.users.cache.get(`439541365580365835`).send(`${RaidId}`)
+                                    client.users.cache.get(`439541365580365835`).send(' ‍ ')
+                                }
+                            }
+                        }
+                    })
+                    //message.channel.send(eachRaidArray.join('\n'))
+                }
+            });
+        }
+        
+      });
+
     const baseFile = 'commands-base.js'
     const CommandBase = require(`./commands/${baseFile}`)
 

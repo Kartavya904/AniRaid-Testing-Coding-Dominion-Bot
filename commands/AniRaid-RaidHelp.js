@@ -6335,8 +6335,9 @@ module.exports = {
                     time : 120000
                 });
                 collector.on('collect', async recievedInteraction => {
+                    //console.log(recievedInteraction)
+                    recievedInteraction.deferUpdate()
                     if (recievedInteraction.user.id === message.author.id) {
-                        recievedInteraction.deferUpdate()
                         //console.log(recievedInteraction)
                         if (recievedInteraction.customId === 'PageOne') {
                             //console.log(recievedInteraction)
@@ -6350,7 +6351,13 @@ module.exports = {
                             //console.log(recievedInteraction)
                             msg.delete()
                         }
+                    } else {
+                        recievedInteraction.deferUpdate()
+                        return
                     }
+                })
+                collector.on('end', async (recievedInteraction) => {
+                    return
                 })
             }
             interact(msg)
