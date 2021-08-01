@@ -12,11 +12,11 @@ module.exports = {
             return message.channel.send('This is owner only command');
 
         if (!code) {
-            return message.reply(
-                new MessageEmbed()
+            return message.reply( {
+                embeds : [new MessageEmbed()
                     .setTitle('Error Usage')
                     .setDescription(`Usage: .eval <code>`)
-            );
+            ]});
         }
 
         try {
@@ -30,15 +30,14 @@ module.exports = {
             if (evaled.length > 800) {
                 evaled = evaled.substring(0, 800) + `...`;
             }
-            return message.channel.send(evaled);
+            return message.channel.send({embeds : [evaled]});
         } catch (e) {
             console.log(e.stack);
             embed
                 .addField(`📥 Input`, `\`\`\`\n${code}\n\`\`\``)
                 .addField(`📤 Output`, `\`\`\`js\n${e}\n\`\`\``)
                 .addField(`Status`, `Failed`)
-                .setColor('#FB6631');
-            return message.channel.send(embed);
+            return message.channel.send({embeds : [embed]});
         }
     }
 };

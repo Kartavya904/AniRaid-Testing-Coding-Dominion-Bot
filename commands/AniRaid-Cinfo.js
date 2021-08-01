@@ -159,8 +159,8 @@ module.exports = {
                                 .setColor(`0x00FFFF`)
                                 .setDescription(`**Card ID:** ${eachCard[15]}\n**Card Series:** ${eachCard[1]}\n**Card Type:** ${eachCard[2]}`)
                                 .addField(`Base Stats`,`\n**Hp:** ${cardHp}\n**Atk:** ${cardAtk}\n**Def:** ${cardDef}\n**Speed:** ${cardSpd}\n**Power Level:** ${cardHp+cardAtk+cardDef+cardSpd}`,true)
-                                .addField(`Sr Evo 3 Lvl 50`,`\n**Hp:** ${SuperRareHp}\n**Atk:** ${SuperRareAtk}\n**Def:** ${SuperRareDef}\n**Speed:** ${SuperRareSpd}\n**Power Level:** ${SuperRarePl}`,true)
-                                .addField(`Ur Evo 3 Lvl 60`,`\n**Hp:** ${UltraRareHp}\n**Atk:** ${UltraRareAtk}\n**Def:** ${UltraRareDef}\n**Speed:** ${UltraRareSpd}\n**Power Level:** ${UltraRarePl}`,true)
+                                .addField(`Sr Max`,`\n**Hp:** ${SuperRareHp}\n**Atk:** ${SuperRareAtk}\n**Def:** ${SuperRareDef}\n**Speed:** ${SuperRareSpd}\n**Power Level:** ${SuperRarePl}`,true)
+                                .addField(`Ur Max`,`\n**Hp:** ${UltraRareHp}\n**Atk:** ${UltraRareAtk}\n**Def:** ${UltraRareDef}\n**Speed:** ${UltraRareSpd}\n**Power Level:** ${UltraRarePl}`,true)
                                 .addField(`Location: :map:`,`**Area:** ${eachCard[8]}\n**Floors:** ~~Lottery~~, Events, ~~Events~~`,false)
                                 .addField(`Sr Talent:`,`${eachCard[13]} ${eachCard[11]}`,false)
                                 .addField(`Ur Talent`,`${eachCard[13]} ${eachCard[12]}`,false)
@@ -177,8 +177,8 @@ module.exports = {
                                 .setColor(`0x00FFFF`)
                                 .setDescription(`**Card ID:** ${eachCard[15]}\n**Card Series:** ${eachCard[1]}\n**Card Type:** ${eachCard[2]}`)
                                 .addField(`Base Stats`,`\n**Hp:** ${cardHp}\n**Atk:** ${cardAtk}\n**Def:** ${cardDef}\n**Speed:** ${cardSpd}\n**Power Level:** ${cardHp+cardAtk+cardDef+cardSpd}`,true)
-                                .addField(`Sr Evo 3 Lvl 50`,`\n**Hp:** ${SuperRareHp}\n**Atk:** ${SuperRareAtk}\n**Def:** ${SuperRareDef}\n**Speed:** ${SuperRareSpd}\n**Power Level:** ${SuperRarePl}`,true)
-                                .addField(`Ur Evo 3 Lvl 60`,`\n**Hp:** ${UltraRareHp}\n**Atk:** ${UltraRareAtk}\n**Def:** ${UltraRareDef}\n**Speed:** ${UltraRareSpd}\n**Power Level:** ${UltraRarePl}`,true)
+                                .addField(`Sr Max`,`\n**Hp:** ${SuperRareHp}\n**Atk:** ${SuperRareAtk}\n**Def:** ${SuperRareDef}\n**Speed:** ${SuperRareSpd}\n**Power Level:** ${SuperRarePl}`,true)
+                                .addField(`Ur Max`,`\n**Hp:** ${UltraRareHp}\n**Atk:** ${UltraRareAtk}\n**Def:** ${UltraRareDef}\n**Speed:** ${UltraRareSpd}\n**Power Level:** ${UltraRarePl}`,true)
                                 .addField(`Location: :map:`,`**Area:** ${eachCard[8]}\n**Floors:** ${fl1}, ${fl2}, ${fl3}`,false)
                                 .addField(`Sr Talent:`,`${eachCard[13]} ${eachCard[11]}`,false)
                                 .addField(`Ur Talent`,`${eachCard[13]} ${eachCard[12]}`,false)
@@ -204,6 +204,7 @@ module.exports = {
         var success = ''
         const AniHelp = message.guild.members.cache.get('718465212776448081')
         if (AniHelp) {
+            console.log(`Yes`)
             success = `Results Weren't Found Due To \`AniHelp Bot\` Being In ${message.guild.name} : **FAIL!**`
             send = 0
             message.channel.send({ content : `Imma Let <@718465212776448081> show the Cinfo. :)` })

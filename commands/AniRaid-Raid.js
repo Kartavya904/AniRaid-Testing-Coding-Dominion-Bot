@@ -237,11 +237,11 @@ module.exports = {
         let givenRolePing = ''
         for (givenRole of rolestoPing) {
             if (givenRole === 'New Raider') {
-                givenRolePing += '<&@867775891296092210> '
+                givenRolePing += '<@&867775891296092210> '
             } else if (givenRole === 'Average Raider') {
-                givenRolePing += '<&@867775894859939920> '
+                givenRolePing += '<@&867775894859939920> '
             } else if (givenRole === 'Expert Raider') {
-                givenRolePing += '<&@867775900044361750> '
+                givenRolePing += '<@&867775900044361750> '
         }
         }
 
