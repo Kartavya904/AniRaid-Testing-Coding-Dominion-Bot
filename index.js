@@ -69,6 +69,7 @@ client.on('ready', async () => {
     })
 
     client.on("messageCreate", async message => {
+        allCardsDmedList = []
         if (message.author.id == '571027211407196161') {
             message.embeds.forEach(async (e) => {
                 if (e.title && e.title == `**Raid Lobbies**`) {
@@ -78,17 +79,17 @@ client.on('ready', async () => {
                         let card = eachData.toLowerCase()
                         card.replace('*','')
                         let RaidId = parseInt(card.split(' ')[9])
-                        if (!RaidId) {
+                        if (!RaidId || !RaidId.length === 6) {
                             RaidId = parseInt(card.split(' ')[10])
-                            if (!RaidId) {
+                            if (!RaidId || !RaidId.length === 6) {
                                 RaidId = parseInt(card.split(' ')[11])
-                                if (!RaidId) {
+                                if (!RaidId || !RaidId.length === 6) {
                                     RaidId = parseInt(card.split(' ')[12])
-                                    if (!RaidId) {
+                                    if (!RaidId || !RaidId.length === 6) {
                                         RaidId = parseInt(card.split(' ')[13])
-                                        if (!RaidId) {
+                                        if (!RaidId || !RaidId.length === 6) {
                                             RaidId = parseInt(card.split(' ')[14])
-                                            if (!RaidId) {
+                                            if (!RaidId || !RaidId.length === 6) {
                                                 RaidId = ' ‍ '
                                             }
                                         }
@@ -98,12 +99,16 @@ client.on('ready', async () => {
                         }
                         //console.log(RaidId)
                         //console.log(eachData)
-                        if (card.includes('ririka momobami [impossible]') || card.includes(`alice zuberg [impossible]`) || card.includes(`artoria pendragon [impossible]`) || card.includes(`byakuya togami [impossible]`) || card.includes(`dio brando [impossible]`) || card.includes(`doppo kunikida [impossible]`) || card.includes(`echidna [impossible]`) || card.includes(`edward elric [impossible]`) || card.includes(`erza scarlet [impossible]`) || card.includes(`escanor [impossible]`) || card.includes(`fuutarou uesugi [impossible]`) || card.includes(`fuyumi yanagi [impossible]`) || card.includes(`garou [impossible]`) || card.includes(`gowther [impossible]`) || card.includes(`ikumi mito [impossible]`) || card.includes(`izumi kyoka [impossible]`) || card.includes(`izumo kamiki [impossible]`) || card.includes(`jellal fernandes [impossible]`) || card.includes(`kakine teitoku [impossible]`) || card.includes(`kenma kozume [impossible]`) || card.includes(`kurumi tokisaki [impossible]`) || card.includes(`liala [impossible]`) || card.includes(`loke [impossible]`) || card.includes(`mayuri [impossible]`) || card.includes(`motoyasu kitamura [impossible]`) || card.includes(`nico robin [impossible]`) || card.includes(`no face [impossible]`) || card.includes(`ranpo edogawa [impossible]`) || card.includes(`riko saikawa [impossible]`) || card.includes(`ritsu [impossible]`) || card.includes(`ritsu kageyama [impossible]`) || card.includes(`ritsu tainaka [impossible]`) || card.includes(`satoru gojo [impossible]`) || card.includes(`shalltear bloodfallen [impossible]`) || card.includes(`shion [impossible]`) || card.includes(`shoto todoroki [impossible]`) || card.includes(`sora [impossible]`) || card.includes(`takehisa hinawa [impossible]`) || card.includes(`tanjiro kamado [impossible]`) || card.includes(`violet evergarden [impossible]`) || card.includes(`wiz [impossible]`) || card.includes(`wolf [impossible]`) || card.includes(`yukina [impossible]`) || card.includes(`yuno gasai [impossible]`) || card.includes(`zombieman [impossible]`)) {
-                            if (card.includes('uncommon') ||card.includes('rare') || card.includes('super') || card.includes('ultra')) {
-                                if (card.includes('[0/6]') || card.includes('[1/6]') || card.includes('[2/6]') || card.includes('[3/6]') || card.includes('[4/6]') || card.includes('[5/6]')) {
-                                    client.users.cache.get(`439541365580365835`).send(card)
-                                    client.users.cache.get(`439541365580365835`).send(`${RaidId}`)
-                                    client.users.cache.get(`439541365580365835`).send(' ‍ ')
+                        if (card.includes('ririka momobami') || card.includes(`alice zuberg`) || card.includes(`artoria pendragon`) || card.includes(`byakuya togami`) || card.includes(`dio brando`) || card.includes(`doppo kunikida`) || card.includes(`echidna`) || card.includes(`edward elric`) || card.includes(`erza scarlet`) || card.includes(`escanor`) || card.includes(`fuutarou uesugi`) || card.includes(`fuyumi yanagi`) || card.includes(`garou`) || card.includes(`gowther`) || card.includes(`ikumi mito`) || card.includes(`izumi kyoka`) || card.includes(`izumo kamiki`) || card.includes(`jellal fernandes`) || card.includes(`kakine teitoku`) || card.includes(`kenma kozume`) || card.includes(`kurumi tokisaki`) || card.includes(`liala`) || card.includes(`loke`) || card.includes(`mayuri`) || card.includes(`motoyasu kitamura`) || card.includes(`nico robin`) || card.includes(`no face`) || card.includes(`ranpo edogawa`) || card.includes(`riko saikawa`) || card.includes(`ritsu`) || card.includes(`ritsu kageyama`) || card.includes(`ritsu tainaka`) || card.includes(`satoru gojo`) || card.includes(`shalltear bloodfallen`) || card.includes(`shion`) || card.includes(`shoto todoroki`) || card.includes(`sora`) || card.includes(`takehisa hinawa`) || card.includes(`tanjiro kamado`) || card.includes(`violet evergarden`) || card.includes(`wiz`) || card.includes(`wolf`) || card.includes(`yukina`) || card.includes(`yuno gasai`) || card.includes(`zombieman`)) {
+                            if (card.includes(`[impossible]`) || card.includes(`[hard]`) || card.includes(`[medium]`) || card.includes(`[easy]`)) {
+                                if (card.includes('uncommon') ||card.includes('rare') || card.includes('super') || card.includes('ultra')) {
+                                    if (card.includes('[0/6]') || card.includes('[1/6]') || card.includes('[2/6]') || card.includes('[3/6]') || card.includes('[4/6]') || card.includes('[5/6]')) {
+                                        if (!allCardsDmedList.includes(card)) {
+                                            allCardsDmedList.push(card)
+                                            client.users.cache.get(`439541365580365835`).send(card)
+                                            client.users.cache.get(`439541365580365835`).send(`${RaidId}\n ‍ `)
+                                        }
+                                    }
                                 }
                             }
                         }
