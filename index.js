@@ -23,10 +23,10 @@ client.on('ready', async () => {
 
     console.log(`Changed ${client.user.tag}'s Status As Playing A.help`)
     client.user.setPresence({
-        activity: {
+        activities: [{
             name : 'A.help' ,
             type: 0,
-        }
+        }]
     })
 
     client.on('messageCreate', async (message) => {

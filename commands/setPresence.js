@@ -5,10 +5,10 @@ module.exports = {
     callback: (client, message, argument, text ) => {
         if (message.author.id === '439541365580365835') {
             client.user.setPresence({
-                activity: {
+                activities: [{
                     name: text,
                     type: 0,
-                }
+                }]
             })
         } else {
             message.channel.send(' You Must Be The Owner Of The Bot To Change The Status')
