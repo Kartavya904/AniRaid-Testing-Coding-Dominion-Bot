@@ -68,8 +68,35 @@ client.on('ready', async () => {
         }
     })
 
+
+    client.on(`messageCreate`, async message => {
+        if (message.author.id === '571027211407196161' && message.guild.id === '867432813557317662') {
+            message.embeds.forEach(async (AniGameEmbed) => {
+                if (AniGameEmbed.title && AniGameEmbed.title.includes(`Raid Challenge Party`)) {
+                    let cardInfo = AniGameEmbed.description.split(`\n\n`)[0]
+                    cardInfo = cardInfo.split('\n')[0]
+                    let cardName = cardInfo
+                    let raidCode = parseInt(AniGameEmbed.footer.text.split(' ')[6]) 
+                    let Author = AniGameEmbed.author.name
+                    var rdAnnouncementEmbed = new MessageEmbed()
+                            .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic:true}))
+                            .setDescription(`**<@${message.author.id}>'s Raid Summary**\n ‍ `)
+                            .setThumbnail(eachCard[3])
+                            .setColor(`000000`)
+                            .addField(`**Rarity of Raid:**`,`${givenRarity}\n ‍ `,false)
+                            .addField(`**Power Level:**`,`${rdPl}\n ‍ `,false)
+                            .addField(`**Boss Name:**`,`${eachCard[0]}\n ‍ `,false)
+                            .addField(`**Code:**`,`${givenCode}\n ‍ `,false)
+                            .addField(`**Preferred Raiders:**`,`${rolestoPing.join('\n')}\n ‍ `,false)
+                            .setFooter(client.user.username, client.user.displayAvatarURL({dynamic:true}))
+                            .setTimestamp()
+
+                }
+            })
+        }
+    })
+
     client.on("messageCreate", async message => {
-        allCardsDmedList = []
         if (message.author.id == '571027211407196161') {
             message.embeds.forEach(async (e) => {
                 if (e.title && e.title == `**Raid Lobbies**`) {
@@ -103,11 +130,8 @@ client.on('ready', async () => {
                             if (card.includes(`[impossible]`) || card.includes(`[hard]`) || card.includes(`[medium]`) || card.includes(`[easy]`)) {
                                 if (card.includes('uncommon') ||card.includes('rare') || card.includes('super') || card.includes('ultra')) {
                                     if (card.includes('[0/6]') || card.includes('[1/6]') || card.includes('[2/6]') || card.includes('[3/6]') || card.includes('[4/6]') || card.includes('[5/6]')) {
-                                        if (!allCardsDmedList.includes(card)) {
-                                            allCardsDmedList.push(card)
-                                            client.users.cache.get(`439541365580365835`).send(card)
-                                            client.users.cache.get(`439541365580365835`).send(`${RaidId}\n ‍ `)
-                                        }
+                                        client.users.cache.get(`439541365580365835`).send(card)
+                                        client.users.cache.get(`439541365580365835`).send(`${RaidId}\n ‍ `)
                                     }
                                 }
                             }
@@ -117,7 +141,54 @@ client.on('ready', async () => {
                 }
             });
         }
-        
+      });
+    
+    client.on("messageCreate", async message => {
+        if (message.author.id == '571027211407196161') {
+            message.embeds.forEach(async (e) => {
+                if (e.title && e.title == `**Raid Lobbies**`) {
+                    data = e.description
+                    c=0
+                    data.split('\n\n').forEach(eachData => {
+                        let card = eachData.toLowerCase()
+                        card.replace('*','')
+                        let RaidId = parseInt(card.split(' ')[9])
+                        if (!RaidId || !RaidId.length === 6) {
+                            RaidId = parseInt(card.split(' ')[10])
+                            if (!RaidId || !RaidId.length === 6) {
+                                RaidId = parseInt(card.split(' ')[11])
+                                if (!RaidId || !RaidId.length === 6) {
+                                    RaidId = parseInt(card.split(' ')[12])
+                                    if (!RaidId || !RaidId.length === 6) {
+                                        RaidId = parseInt(card.split(' ')[13])
+                                        if (!RaidId || !RaidId.length === 6) {
+                                            RaidId = parseInt(card.split(' ')[14])
+                                            if (!RaidId || !RaidId.length === 6) {
+                                                RaidId = ' ‍ '
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //console.log(RaidId)
+                        //console.log(eachData)
+                        if ((card.includes('ririka momobami') || card.includes(`alice zuberg`) || card.includes(`artoria pendragon`) || card.includes(`byakuya togami`) || card.includes(`dio brando`) || card.includes(`doppo kunikida`) || card.includes(`echidna`) || card.includes(`edward elric`) || card.includes(`erza scarlet`) || card.includes(`escanor`) || card.includes(`fuutarou uesugi`) || card.includes(`fuyumi yanagi`) || card.includes(`garou`) || card.includes(`gowther`) || card.includes(`ikumi mito`) || card.includes(`izumi kyoka`) || card.includes(`izumo kamiki`) || card.includes(`kakine teitoku`) || card.includes(`kenma kozume`) || card.includes(`kurumi tokisaki`) || card.includes(`liala`) || card.includes(`loke`) || card.includes(`mayuri`) || card.includes(`motoyasu kitamura`) || card.includes(`nico robin`) || card.includes(`no face`) || card.includes(`ranpo edogawa`) || card.includes(`riko saikawa`) || card.includes(`ritsu`) || card.includes(`ritsu kageyama`) || card.includes(`ritsu tainaka`) || card.includes(`satoru gojo`) || card.includes(`shalltear bloodfallen`) || card.includes(`shion`) || card.includes(`shoto todoroki`) || card.includes(`sora`) || card.includes(`takehisa hinawa`) || card.includes(`tanjiro kamado`) || card.includes(`violet evergarden`) || card.includes(`wiz`) || card.includes(`wolf`) || card.includes(`yukina`) || card.includes(`yuno gasai`) || card.includes(`zombieman`)) && !card.includes(`tainaka`) && !card.includes(`ritsu kageyama`)) {
+                            if (card.includes(`[impossible]`)) {
+                                if (card.includes('rare') || card.includes('super') || card.includes('ultra')) {
+                                    if (card.includes('[0/6]') || card.includes('[1/6]') || card.includes('[2/6]') || card.includes('[3/6]') || card.includes('[4/6]') || card.includes('[5/6]')) {
+                                        client.channels.cache.get('755431495778435082').send(`<@618164180129808406> & <@463960332931694603>`)
+                                        client.channels.cache.get('755431495778435082').send(card)
+                                        client.channels.cache.get('755431495778435082').send(`.rd join ${RaidId}\n ‍ `)
+                                    }
+                                }
+                            }
+                        }
+                    })
+                    //message.channel.send(eachRaidArray.join('\n'))
+                }
+            });
+        }
       });
 
     const baseFile = 'commands-base.js'
